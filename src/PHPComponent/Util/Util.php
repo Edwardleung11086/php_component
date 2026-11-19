@@ -764,17 +764,17 @@ function sortPaging($dataList, $sortProp, $sortOrder)
                     if (isset($a->$prop))
                         $a = $a->$prop;
                     else
-                        return false;
+                        return 0;
                     if (isset($b->$prop))
                         $b = $b->$prop;
                     else
-                        return false;
+                        return 0;
                 }
                 if (is_array($a) || is_array($b))
-                    return ($sortOrder === "ascending") ? (json_encode($a) > json_encode($b)) : (json_encode($a) < json_encode($b));
-                return ($sortOrder === "ascending") ? ($a > $b) : ($a < $b);
+                    return ($sortOrder === "ascending") ? (json_encode($a) <=> json_encode($b)) : (json_encode($b) <=> json_encode($a));
+                return ($sortOrder === "ascending") ? ($a <=> $b) : ($b <=> $a);
             }
-            return ($sortOrder === "ascending") ? (strtolower($a->$sortProp) > strtolower($b->$sortProp)) : (strtolower($a->$sortProp) < strtolower($b->$sortProp));
+            return ($sortOrder === "ascending") ? (strtolower($a->$sortProp) <=> strtolower($b->$sortProp)) : (strtolower($b->$sortProp) <=> strtolower($a->$sortProp));
         });
     } catch (Exception $e) {
         return $dataList;

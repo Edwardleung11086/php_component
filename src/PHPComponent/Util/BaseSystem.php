@@ -456,7 +456,7 @@ function getSelfShoppingCart($parameters)
     if(sizeof($shoppingCartList) > 0){
         usort($shoppingCartList, function ($a, $b){
             try{
-                return strtotime($a->lastUpdateDate) < strtotime($b->lastUpdateDate);
+                return strtotime($a->lastUpdateDate) <=> strtotime($b->lastUpdateDate);
             }catch(Exception $e){
                 return true;
             }
