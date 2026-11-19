@@ -134,7 +134,11 @@ abstract class DB_mysql{
     static function getByID($class, $ID, $options = null)
     {
         try{
-            self::$_conn->where("ID", $ID);
+            if (!is_array($ID)) {
+                $ID = [$ID];
+            }
+            self::$_conn->where("ID", $ID, "IN");
+            // self::$_conn->where("ID", $ID);
             $item = self::getRaw($class::getSelfName(), $options);
             $item = (sizeof($item) > 0) ? new $class($item[0], $options) : null;
             // if($item != null){

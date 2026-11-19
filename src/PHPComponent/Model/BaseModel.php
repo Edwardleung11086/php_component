@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 abstract class BaseModel
 {
     const PUBLIC = 0; //To be deprecated
